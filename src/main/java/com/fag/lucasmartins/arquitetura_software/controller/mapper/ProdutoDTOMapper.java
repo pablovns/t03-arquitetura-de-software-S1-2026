@@ -1,6 +1,6 @@
 package com.fag.lucasmartins.arquitetura_software.controller.mapper;
 
-import com.fag.lucasmartins.arquitetura_software.dto.ProdutoDTO;
+import com.fag.lucasmartins.arquitetura_software.view.dto.ProdutoDTO;
 import com.fag.lucasmartins.arquitetura_software.model.bo.ProdutoBO;
 
 public class ProdutoDTOMapper {
