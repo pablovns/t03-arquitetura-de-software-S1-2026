@@ -17,6 +17,18 @@ public class ProdutoBO {
         this.preco = preco;
     }
 
+    public void validarPrecoPremium() {
+        if (nome != null && nome.toLowerCase().contains("premium") && preco < 100.0) {
+            throw new RuntimeException("Erro: Produtos Premium não podem custar menos de R$ 100,00.");
+        }
+    }
+
+    public void aplicarDescontoSeNecessario() {
+        if (estoque != null && estoque >= 50) {
+            preco = preco - (preco * 0.10); // 10%;
+        }
+    }
+
     public Long getId() {
         return id;
     }

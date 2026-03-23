@@ -16,19 +16,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public ProdutoBO cadastrarProduto(ProdutoBO produtoBO) {
-        String nome = produtoBO.getNome();
-        Integer estoque = produtoBO.getEstoque();
-        double preco = produtoBO.getPreco();
-
-        if (nome != null && nome.toLowerCase().contains("premium") && preco < 100.0) {
-            throw new RuntimeException("Erro: Produtos Premium não podem custar menos de R$ 100,00.");
-        }
-
-        double precoFinal;
-        if (estoque != null && estoque >= 50) {
-            precoFinal = preco - (preco * 0.10); // 10%
-            produtoBO.setPreco(precoFinal);
-        }
+        produtoBO.validarPrecoPremium();
+        produtoBO.aplicarDescontoSeNecessario();
 
         return salvar(produtoBO);
     }
