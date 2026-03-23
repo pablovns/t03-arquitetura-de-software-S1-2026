@@ -1,0 +1,31 @@
+name: SonarQube analysis
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+permissions:
+  pull-requests: read
+
+jobs:
+  Analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Importante para o SonarQube analisar o histórico do Git
+
+      - name: Analyze with SonarQube
+        uses: SonarSource/sonarqube-scan-action@v4 # Atualizado para v4 (Java 17+)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args:
+            -Dsonar.projectKey=SEU_PROJECT_KEY_AQUI # <-- Não esqueça de preencher este campo!
